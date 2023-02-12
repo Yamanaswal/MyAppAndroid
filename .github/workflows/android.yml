@@ -13,7 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
+    # Setup JDK - 11 version using default github actions.
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
@@ -21,9 +22,10 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-
+    # Grant Permissions - Gradle Commands
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-      
+
+    # Build gradle
     - name: Build with Gradle
       run: ./gradlew build

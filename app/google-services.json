@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "588860522808",
+    "project_id": "my-project-1656337071058",
+    "storage_bucket": "my-project-1656337071058.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588860522808:android:899cb39402b6df83c281cd",
+        "android_client_info": {
+          "package_name": "com.yaman.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588860522808-fneme56rumv0ontiap3rcj3p6l30vnvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8bRk0zy1lfszn1A_FH6qikeuaTVe3s3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588860522808-fneme56rumv0ontiap3rcj3p6l30vnvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
