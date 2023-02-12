@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "MyApplicationDemo"
 include ':app'
 include ':custom_download_manager'
-include ':exoplayer_custom'
+//include ':exoplayer_custom'

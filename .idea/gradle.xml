@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/custom_download_manager" />
-            <option value="$PROJECT_DIR$/exoplayer_custom" />
           </set>
         </option>
       </GradleProjectSettings>
