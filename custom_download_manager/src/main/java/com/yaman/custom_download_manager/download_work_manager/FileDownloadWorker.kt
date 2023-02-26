@@ -1,5 +1,6 @@
 package com.yaman.custom_download_manager.download_work_manager
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -19,11 +20,12 @@ import com.yaman.custom_download_manager.models.NotificationConstants
 
 class FileDownloadWorker(
     private val context: Context,
-    workerParameters: WorkerParameters
+    private val workerParameters: WorkerParameters
 ) : CoroutineWorker(context, workerParameters) {
 
     var progress = 0
 
+    @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
 
         val fileUrl = inputData.getString(FileParams.KEY_FILE_URL) ?: ""
@@ -50,7 +52,8 @@ class FileDownloadWorker(
                 fileType = fileType,
                 fileUrl = fileUrl,
                 downloadPath = fileDownloadPath,
-                context = context
+                context = context,
+                workerParameters
             ) {
                 setProgressAsync(workDataOf(FileParams.KEY_FILE_PROGRESS to it.toString()))
                 progress = it

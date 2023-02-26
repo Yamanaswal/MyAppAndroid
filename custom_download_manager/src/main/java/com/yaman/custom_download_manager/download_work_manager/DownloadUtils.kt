@@ -8,6 +8,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.core.net.toUri
+import androidx.work.WorkerParameters
 import com.yaman.custom_download_manager.models.FileDownloadPaths.ExternalStorageDirectory
 import java.io.*
 import java.io.File
@@ -25,6 +26,7 @@ object DownloadUtils {
         fileUrl: String,
         downloadPath: String,
         context: Context,
+        workerParameters: WorkerParameters,
         listener: (Int) -> Unit
     ): Uri? {
 
@@ -54,7 +56,7 @@ object DownloadUtils {
 
             return if (uri != null) {
                 val url = URL(fileUrl)
-                getProgress(url.openStream(), url.openConnection().contentLength,listener)
+                getProgress(url.openStream(), url.openConnection().contentLength,workerParameters,listener)
 
                 url.openStream().use { input ->
                     resolver.openOutputStream(uri).use { output ->
@@ -73,7 +75,7 @@ object DownloadUtils {
             val target = setDownloadPaths(downloadPath,fileName)
 
             val url = URL(fileUrl)
-            getProgress(url.openStream(), url.openConnection().contentLength,listener)
+            getProgress(url.openStream(), url.openConnection().contentLength,workerParameters,listener)
 
             url.openStream().use { input ->
                 FileOutputStream(target).use { output ->
@@ -103,7 +105,8 @@ object DownloadUtils {
     }
 
 
-    private fun getProgress(inputStream: InputStream, contentLength: Int, listener: (Int) -> Unit) {
+    private fun getProgress(inputStream: InputStream, contentLength: Int,
+                            workerParameters:WorkerParameters, listener: (Int) -> Unit) {
         try {
             val total: Long = contentLength.toLong()
             var count: Int
@@ -112,7 +115,8 @@ object DownloadUtils {
             var current: Long = 0
             while (input.read(data).also { count = it } != -1) {
                 current += count.toLong()
-                listener((current * 100 / total).toInt())
+                val percentage = (current * 100 / total).toInt()
+                listener(percentage)
             }
             input.close()
         } catch (e: Exception) {

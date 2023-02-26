@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.appdistribution'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -40,6 +42,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -48,13 +53,33 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation project(path: ':custom_download_manager')
+    implementation project(':custom_download_manager')
+    implementation 'androidx.room:room-ktx:2.4.2'
+    implementation 'androidx.work:work-runtime-ktx:2.8.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-    implementation 'androidx.multidex:multidex:2.0.1'
     implementation("com.google.guava:guava:31.1-jre")
 
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //My Library
+    implementation ('com.github.Yamanaswal:Library_Store:2.0.2') {
+//        exclude module: 'library_tools'
+//        exclude module: 'retrofit'
+        exclude module: 'realm'
+        exclude module: 'socket'
+        exclude module: 'dialogs'
+        exclude module: 'paging'
+        exclude module: 'network_tools'
+    }
+
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+//    // Allow references to generated code
+//    kapt {
+//        correctErrorTypes true
+//    }
 }

@@ -14,6 +14,7 @@ fun startDownloadingFile(
     file: File,
     storageNotLow: Boolean = true,
     batteryNotLow: Boolean = true,
+    enqueued: (workInfo: WorkInfo) -> Unit,
     success: (status: String, workInfo: WorkInfo) -> Unit,
     failed: (status: String, workInfo: WorkInfo) -> Unit,
     running: (workInfo: WorkInfo) -> Unit,
@@ -51,6 +52,10 @@ fun startDownloadingFile(
         .observe(lifecycleOwner) { info ->
             info?.let {
                 when (it.state) {
+                    WorkInfo.State.ENQUEUED -> {
+                        Log.e("ENQUEUED", "fileDownloadWorker.id: ${fileDownloadWorker.id}")
+                        enqueued(it)
+                    }
                     WorkInfo.State.SUCCEEDED -> {
                         success(it.outputData.getString(FileParams.KEY_FILE_URI) ?: "", it)
                     }
